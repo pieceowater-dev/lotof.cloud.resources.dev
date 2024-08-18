@@ -1,7 +1,7 @@
 services:
   lotof.template.gateway:
     container_name: lotof.template.gateway
-    image: ghcr.io/pieceowater-dev/lotof.template.gateway:73c4384
+    image: ghcr.io/pieceowater-dev/lotof.template.gateway:5484c5a
     platform: linux/amd64
     ports:
       - "80:3000"
