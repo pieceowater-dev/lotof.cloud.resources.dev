@@ -1,0 +1,8 @@
+services:
+  network.create:
+    image: alpine:latest
+    command: ["sh", "-c", "docker network create lotof-network || true"]
+    network_mode: "none"
+    deploy:
+      restart_policy:
+        condition: none
