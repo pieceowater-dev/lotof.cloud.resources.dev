@@ -18,3 +18,7 @@ services:
 
 volumes:
   pgdata:
+
+networks:
+  lotof-network:
+    external: true
