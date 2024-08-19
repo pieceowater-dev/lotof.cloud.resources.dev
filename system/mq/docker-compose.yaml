@@ -11,6 +11,8 @@ services:
       - "4369:4369"
       - "5671:5671"
       - "5672:5672"
+    networks:
+      - lotof-network
 
 networks:
   lotof-network:

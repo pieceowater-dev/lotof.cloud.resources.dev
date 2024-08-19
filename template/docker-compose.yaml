@@ -7,6 +7,8 @@ services:
       - RABBITMQ_URL=amqp://guest:guest@lotof.template.rabbitmq:5672
     ports:
       - "80:3000"
+    networks:
+      - lotof-network
 
   lotof.template.service:
     container_name: lotof.template.service
@@ -17,6 +19,8 @@ services:
       - DATABASE_URL=postgres://postgres:dima3raza@lotof.template.postgres:5432/template
     ports:
       - "81:3000"
+    networks:
+      - lotof-network
   
 networks:
   lotof-network:
