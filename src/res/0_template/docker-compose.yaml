@@ -1,7 +1,7 @@
 services:
   lotof.template.gateway:
     container_name: lotof.template.gateway
-    image: ghcr.io/pieceowater-dev/lotof.template.gateway
+    image: ghcr.io/pieceowater-dev/lotof.template.gateway:main
     platform: linux/amd64
     # depends_on:
     #   lotof.template.rabbitmq:
