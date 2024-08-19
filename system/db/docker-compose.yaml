@@ -1,11 +1,11 @@
 services:
-  redis:
-    image: redis:latest
-    container_name: lotof.template.redis
-    ports:
-      - "6379:6379"
+  # lotof.template.redis:
+  #   image: redis:latest
+  #   container_name: lotof.template.redis
+  #   ports:
+  #     - "6379:6379"
 
-  postgres:
+  lotof.template.postgres:
     image: postgres:latest
     container_name: lotof.template.postgres
     environment:

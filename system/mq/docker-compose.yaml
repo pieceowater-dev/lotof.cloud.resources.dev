@@ -1,5 +1,5 @@
 services:
-  rabbitmq:
+  lotof.template.rabbitmq:
     image: rabbitmq:3.13-management
     container_name: lotof.template.rabbitmq
     ports:
