@@ -1,22 +1,7 @@
 services:
-  # lotof.template.redis:
-  #   image: redis:latest
-  #   container_name: lotof.template.redis
-  #   ports:
-  #     - "6379:6379"
-  #   networks:
-  #     - lotof-template-network
-  #   healthcheck:
-  #     test: ["CMD", "redis-cli", "ping"]
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 3
-
   lotof.template.postgres:
     image: postgres:latest
     container_name: lotof.template.postgres
-    depends_on:
-      - network.create
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dima3raza
@@ -31,6 +16,19 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+
+  # lotof.template.redis:
+  #   image: redis:latest
+  #   container_name: lotof.template.redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - lotof-template-network
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
 
 volumes:
   pgdata:

@@ -2,8 +2,6 @@ services:
   lotof.template.rabbitmq:
     image: rabbitmq:3.13-management
     container_name: lotof.template.rabbitmq
-    depends_on:
-      - network.create
     healthcheck:
       test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
       interval: 30s
