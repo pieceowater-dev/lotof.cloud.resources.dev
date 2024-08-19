@@ -10,6 +10,8 @@ services:
   lotof.template.postgres:
     image: postgres:latest
     container_name: lotof.template.postgres
+    depends_on:
+      - network.create
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dima3raza
