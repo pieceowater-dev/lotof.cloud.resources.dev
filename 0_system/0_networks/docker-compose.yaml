@@ -1,10 +1,10 @@
 services:
   network.create:
-    image: alpine:latest
+    image: docker:latest
     command: ["sh", "-c", "docker network create lotof-network || true"]
     network_mode: "none"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       restart_policy:
         condition: none
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
