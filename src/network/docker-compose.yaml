@@ -1,7 +1,7 @@
 services:
   network.create:
     image: docker:latest
-    command: ["sh", "-c", "docker network create lotof-network || true"]
+    command: ["sh", "-c", "docker network create lotof-template-network || true"]
     network_mode: "none"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

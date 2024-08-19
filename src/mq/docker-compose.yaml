@@ -4,6 +4,11 @@ services:
     container_name: lotof.template.rabbitmq
     depends_on:
       - network.create
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     ports:
       - "15671:15671"
       - "15672:15672"
@@ -14,8 +19,8 @@ services:
       - "5671:5671"
       - "5672:5672"
     networks:
-      - lotof-network
+      - lotof-template-network
 
 networks:
-  lotof-network:
+  lotof-template-network:
     external: true

@@ -4,29 +4,32 @@ services:
     image: ghcr.io/pieceowater-dev/lotof.template.gateway:main
     platform: linux/amd64
     depends_on:
-      - lotof.template.rabbitmq
+      lotof.template.rabbitmq:
+        condition: service_healthy
     environment:
       - RABBITMQ_URL=amqp://guest:guest@lotof.template.rabbitmq:5672
     ports:
       - "80:3000"
     networks:
-      - lotof-network
+      - lotof-template-network
 
   lotof.template.service:
     container_name: lotof.template.service
     image: ghcr.io/pieceowater-dev/lotof.template.service:main
     platform: linux/amd64
     depends_on:
-      - lotof.template.rabbitmq
-      - lotof.template.postgres
+      lotof.template.rabbitmq:
+        condition: service_healthy
+      lotof.template.postgres:
+        condition: service_healthy
     environment:
       - RABBITMQ_URL=amqp://guest:guest@lotof.template.rabbitmq:5672
       - DATABASE_URL=postgres://postgres:dima3raza@lotof.template.postgres:5432/template
     ports:
       - "81:3000"
     networks:
-      - lotof-network
-  
+      - lotof-template-network
+
 networks:
-  lotof-network:
+  lotof-template-network:
     external: true
