@@ -1,1 +1,14 @@
+services:
+  nginx:
+    container_name: lotof.template.nginx
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./template-nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - lotof-template-network
 
+networks:
+  lotof-template-network:
+    external: true
