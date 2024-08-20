@@ -1,5 +1,5 @@
 services:
-  nginx:
+  template.nginx:
     container_name: lotof.template.nginx
     image: nginx:latest
     ports:
@@ -12,7 +12,7 @@ services:
     networks:
       - lotof-template-network
 
-  certbot:
+  template.certbot:
     image: certbot/certbot
     volumes:
       - ./template-certs:/etc/letsencrypt
