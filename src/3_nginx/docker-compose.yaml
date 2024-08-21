@@ -1,14 +1,26 @@
 services:
   certbot:
     container_name: lotof.certbot
-    image: certbot/certbot
+    build: .
     volumes:
       - ./certs:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot --webroot-path=/var/www/certbot --email pieceowater@gmail.com --agree-tos --no-eff-email -d api.template.lotof.services -d template.lotof.services -d *.lotof.services
+      - ~/.aws/credentials:/root/.aws/credentials:ro
+    command: certonly --dns-route53 --email pieceowater@gmail.com --agree-tos --no-eff-email -d api.template.lotof.services -d '*.lotof.services'
     networks:
       - lotof-template-network
-    entrypoint: ["/bin/sh", "-c", "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;"]
+
+  renewal:
+    container_name: lotof.certbot-renewal
+    build: .
+    volumes:
+      - ./certs:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ~/.aws/credentials:/root/.aws/credentials:ro
+    entrypoint: /bin/sh
+    command: -c "while true; do certbot renew --dns-route53 --quiet; sleep 12h; done;"
+    networks:
+      - lotof-template-network
 
   nginx:
     container_name: lotof.nginx

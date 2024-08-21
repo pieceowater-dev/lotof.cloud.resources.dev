@@ -1,0 +1,5 @@
+src/3_nginx/certs/
+
+src/3_nginx/certbot/
+
+!src/3_nginx/certs/live/*
