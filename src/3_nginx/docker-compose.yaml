@@ -6,7 +6,7 @@ services:
       - ./certs:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
       - ~/.aws/credentials:/root/.aws/credentials:ro
-    command: certonly --dns-route53 --email pieceowater@gmail.com --agree-tos --no-eff-email -d api.template.lotof.services -d '*.lotof.services'
+    command: certonly --dns-route53 --email pieceowater@gmail.com --agree-tos --no-eff-email --non-interactive --quiet -d api.template.lotof.services -d '*.lotof.services'
     networks:
       - lotof-template-network
 
@@ -18,7 +18,7 @@ services:
       - ./certbot/www:/var/www/certbot
       - ~/.aws/credentials:/root/.aws/credentials:ro
     entrypoint: /bin/sh
-    command: -c "while true; do certbot renew --dns-route53 --quiet; sleep 12h; done;"
+    command: -c "while true; do certbot renew --dns-route53 --quiet --non-interactive; sleep 12h; done;"
     networks:
       - lotof-template-network
 
