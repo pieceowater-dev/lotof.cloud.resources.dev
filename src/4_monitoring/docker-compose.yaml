@@ -12,7 +12,7 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - lotof-loki
-      - telecom-app_app-network
+      - lotof-template-network
 
   promtail:
     image: grafana/promtail:2.9.2
@@ -24,7 +24,7 @@ services:
     command: -config.file=/etc/promtail/config.yml
     networks:
       - lotof-loki
-      - telecom-app_app-network
+      - lotof-template-network
 
   grafana:
     environment:
@@ -65,7 +65,7 @@ services:
       - "3010:3000"
     networks:
       - lotof-loki
-      - telecom-app_app-network
+      - lotof-template-network
 
   prometheus:
     image: prom/prometheus:latest
@@ -84,7 +84,7 @@ services:
       - 9090
     networks:
       - lotof-loki
-      - telecom-app_app-network
+      - lotof-template-network
 
   node-exporter:
     image: prom/node-exporter:latest
@@ -102,7 +102,7 @@ services:
     expose:
       - 9100
     networks:
-      - telecom-app_app-network
+      - lotof-template-network
 
 volumes:
   prometheus_data: {}
