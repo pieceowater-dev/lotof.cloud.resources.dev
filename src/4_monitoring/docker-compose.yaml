@@ -12,23 +12,25 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - lotof-loki
-      - lotof-template-network
+      - telecom-app_app-network
 
   promtail:
     image: grafana/promtail:2.9.2
     container_name: promtail
     volumes:
+      - ./promtail-config.yml:/etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
     networks:
       - lotof-loki
-      - lotof-template-network
+      - telecom-app_app-network
 
   grafana:
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-      - GF_SECURITY_ADMIN_USER=pieceowater
-      - GF_SECURITY_ADMIN_PASSWORD=dima3raza
+      - GF_SECURITY_ADMIN_USER=ptt
+      - GF_SECURITY_ADMIN_PASSWORD=ptt
     entrypoint:
       - sh
       - -euc
@@ -39,11 +41,20 @@ services:
         datasources:
         - name: Loki
           type: loki
-          access: proxy 
+          access: proxy
           orgId: 1
-          url: http://loki:3010
+          url: http://loki:3100
           basicAuth: false
           isDefault: true
+          version: 1
+          editable: false
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          orgId: 1
+          url: http://prometheus:9090
+          basicAuth: false
+          isDefault: false
           version: 1
           editable: false
         EOF
@@ -54,4 +65,44 @@ services:
       - "3010:3000"
     networks:
       - lotof-loki
-      - lotof-template-network
+      - telecom-app_app-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+    networks:
+      - lotof-loki
+      - telecom-app_app-network
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+    networks:
+      - telecom-app_app-network
+
+volumes:
+  prometheus_data: {}
