@@ -1,5 +1,6 @@
 services:
   network.create:
+    container_name: lotof.one-time-network-setup
     image: docker:latest
     command: ["sh", "-c", "docker network create lotof-template-network || true"]
     network_mode: "none"
