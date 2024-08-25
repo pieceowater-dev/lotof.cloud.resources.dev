@@ -14,9 +14,9 @@ services:
     container_name: lotof.certbot-renewal
     build: .
     volumes:
-      - ~/tools/nginx/certs:/etc/letsencrypt
-      - ~/tools/nginx/certbot/www:/var/www/certbot
-      - ~/aws:/root/.aws
+      - /home/ec2-user/tools/nginx/certs:/etc/letsencrypt
+      - /home/ec2-user/tools/nginx/certbot/www:/var/www/certbot
+      - /home/ec2-user/aws:/root/.aws
     entrypoint: /bin/sh
     command: -c "while true; do certbot renew --dns-route53 --quiet --non-interactive; sleep 12h; done;"
     networks:
@@ -29,9 +29,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ~/tools/nginx:/etc/nginx
-      - ~/tools/nginx/certs:/etc/letsencrypt:ro
-      - ~/tools/nginx/certbot/www:/var/www/certbot
+      - /home/ec2-user/tools/nginx:/etc/nginx
+      - /home/ec2-user/tools/nginx/certs:/etc/letsencrypt:ro
+      - /home/ec2-user/tools/nginx/certbot/www:/var/www/certbot
     networks:
       - lotof-template-network
     depends_on:
