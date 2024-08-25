@@ -3,8 +3,8 @@ services:
     container_name: lotof.certbot
     build: .
     volumes:
-      - shared-nginx-conf/certs:/etc/letsencrypt
-      - shared-nginx-conf/certbot/www:/var/www/certbot
+      - ~/tools/nginx/certs:/etc/letsencrypt
+      - ~/tools/nginx/certbot/www:/var/www/certbot
       - ~/.aws/credentials:/root/.aws/credentials:ro
     command: certonly --dns-route53 --email pieceowater@gmail.com --agree-tos --no-eff-email --non-interactive --quiet -d api.template.lotof.services -d '*.lotof.services'
     networks:
@@ -14,8 +14,8 @@ services:
     container_name: lotof.certbot-renewal
     build: .
     volumes:
-      - shared-nginx-conf/certs:/etc/letsencrypt
-      - shared-nginx-conf/certbot/www:/var/www/certbot
+      - ~/tools/nginx/certs:/etc/letsencrypt
+      - ~/tools/nginx/certbot/www:/var/www/certbot
       - ~/.aws/credentials:/root/.aws/credentials:ro
     entrypoint: /bin/sh
     command: -c "while true; do certbot renew --dns-route53 --quiet --non-interactive; sleep 12h; done;"
@@ -29,9 +29,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - shared-nginx-conf:/etc/nginx
-      - shared-nginx-conf/certs:/etc/letsencrypt:ro
-      - shared-nginx-conf/certbot/www:/var/www/certbot
+      - ~/tools/nginx:/etc/nginx
+      - ~/tools/nginx/certs:/etc/letsencrypt:ro
+      - ~/tools/nginx/certbot/www:/var/www/certbot
     networks:
       - lotof-template-network
     depends_on:
@@ -41,6 +41,3 @@ services:
 networks:
   lotof-template-network:
     external: true
-
-volumes:
-  shared-nginx-conf:

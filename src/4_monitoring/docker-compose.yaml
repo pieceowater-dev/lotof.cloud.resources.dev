@@ -18,7 +18,7 @@ services:
     image: grafana/promtail:2.9.2
     container_name: lotof.promtail
     volumes:
-      - shared-monitoring-conf/promtail-config.yml:/etc/promtail/config.yml
+      - ~/tools/monitoring/promtail-config.yml:/etc/promtail/config.yml
       - /var/lib/docker/containers:/var/lib/docker/containers
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
@@ -72,7 +72,7 @@ services:
     container_name: lotof.prometheus
     restart: unless-stopped
     volumes:
-      - shared-monitoring-conf/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ~/tools/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -106,4 +106,3 @@ services:
 
 volumes:
   prometheus_data: {}
-  shared-monitoring-conf: {}
