@@ -5,7 +5,7 @@ services:
     volumes:
       - /tmp/tools/nginx/certs:/etc/letsencrypt
       - /tmp/tools/nginx/certbot/www:/var/www/certbot
-      - /tmp/aws/credentials:/root/.aws/credentials:ro
+      - /tmp/aws:/root/.aws
     command: certonly --dns-route53 --email pieceowater@gmail.com --agree-tos --no-eff-email --non-interactive --quiet -d api.template.lotof.services -d '*.lotof.services'
     networks:
       - lotof-template-network
@@ -16,7 +16,7 @@ services:
     volumes:
       - /tmp/tools/nginx/certs:/etc/letsencrypt
       - /tmp/tools/nginx/certbot/www:/var/www/certbot
-      - /tmp/aws/credentials:/root/.aws/credentials:ro
+      - /tmp/aws:/root/.aws
     entrypoint: /bin/sh
     command: -c "while true; do certbot renew --dns-route53 --quiet --non-interactive; sleep 12h; done;"
     networks:
