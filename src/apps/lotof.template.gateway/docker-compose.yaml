@@ -1,7 +1,7 @@
 services:
   lotof.template.gateway:
     container_name: lotof.template.gateway
-    image: ghcr.io/pieceowater-dev/lotof.template.gateway:6e471dc
+    image: ghcr.io/pieceowater-dev/lotof.template.gateway:4b4895a
     platform: linux/amd64
     environment:
       - RABBITMQ_URL=amqp://guest:guest@lotof.template.rabbitmq:5672
