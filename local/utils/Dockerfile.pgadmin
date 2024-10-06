@@ -1,0 +1,12 @@
+# Dockerfile.pgadmin
+
+FROM dpage/pgadmin4
+
+# Switch to root user to install packages
+USER root
+
+# Install openssh-client
+RUN apk update && apk add --no-cache openssh-client
+
+# Switch back to the default user (pgadmin)
+USER pgadmin
