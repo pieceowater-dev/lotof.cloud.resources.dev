@@ -1,4 +1,15 @@
 services:
+  lotof.template.gateway:
+    container_name: lotof.template.gateway
+    image: ghcr.io/pieceowater-dev/lotof.template.gateway:bcc2a4b
+    platform: linux/amd64
+    environment:
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq-local:5672
+    ports:
+      - "3000:3000"
+    networks:
+      - tools-network
+
   redis:
     image: redis:latest
     container_name: redis-local
