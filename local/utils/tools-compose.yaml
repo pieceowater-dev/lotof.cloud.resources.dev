@@ -32,7 +32,7 @@ services:
       - "5431:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
-      - ~/Downloads/pieceowater-qpay-serv.pem:/pieceowater-qpay-serv.pem
+      # - ~/Downloads/pieceowater-qpay-serv.pem:/pieceowater-qpay-serv.pem
     depends_on:
       - postgres
     networks:
