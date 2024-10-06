@@ -1,7 +1,7 @@
 services:
   redis:
     image: redis:latest
-    container_name: rediska
+    container_name: redis-local
     ports:
       - "6379:6379"
     networks:
@@ -9,7 +9,7 @@ services:
 
   postgres:
     image: postgres:latest
-    container_name: postgres-db
+    container_name: postgres-db-local
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dima3raza
@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.pgadmin
-    container_name: pgadmin
+    container_name: pgadmin-local
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -40,7 +40,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.13-management
-    container_name: rabbitmq
+    container_name: rabbitmq-local
     ports:
       - "15671:15671"
       - "15672:15672"
